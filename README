@@ -1,0 +1,85 @@
+
+
+k_jack V0.0.0.5 ALPHA - EXPERIMENTAL
+-------------------------------------
+
+
+
+ABOUT
+
+	k_jack currently consists of k_jackd~, libk_jack and libaipc.
+
+	k_jackd~ is a jack server external for pure-data.
+
+	libk_jack is (supposed to be) a (somewhat) libjack compatible
+	library.
+
+	Jack applications that want to contact k_jackd~ instead
+	of jackd must (somehow) be linked with libk_jack and
+	libaipc instead of libjack.
+
+	k_jackd~ does not speak with libjack, and jackd does not
+	speak with libk_jack.
+
+	libaipc is a library for audio interprocess communication,
+	based on code from the vstserver. A preview version is
+	included with this version of k_jack. (API is not settled.)
+
+	By using libaipc for interprocess communication, and letting
+	PD take care of various low/mid/high-level audio-stuff,
+	only a few hundred lines of code is currently used for this
+	implementation of a simple jack system.
+
+	k_jackd~ and libk_jack are not based on the jack sourcecode
+	found at jackit.sf.net, except for protos in the header files.
+
+
+
+COMPILE
+	1. Go into the aipc/src folder and write make to compile up
+	   libaipc.a
+	2. Go into the library folder and write make to compile up
+	   libk_jack.a
+	3. Write make to compile up k_jack~.pd_linux.
+	4. Relink you jack application(s) somehow.
+
+
+
+USAGE
+	1. Start pd with the "-lib k_jackd~" option.
+	2. Start a jack application linked with libk_jack.
+	3. Make an object in pd called "k_jackd~ <clientname>".
+	   Correct number of inlets and outlets will be made
+	   automaticly.
+
+	That should be it. Later, when things get more stable, point 3
+	can do point 2 automaticly.
+
+
+
+WHY
+	use k_jackd~ ?
+
+	1. Simple. Only the clientname is used, not the portnames.
+	2. Easy and powerful interface to control the audioflow.
+	3. Good performance. Shouldn't be necessary to run as root.
+
+
+
+TESTED CLIENTS
+	simple_client, freqtweak, ceres.
+
+
+BUGS
+	Crashes pretty often. Does not clean up. Huge risk of not
+	freeing shared memory in the current implementation: Client
+	must exit before server, and client must not crash. And
+	server must not crash.
+
+
+CONTACT
+	Send ideas (especially about the k_jackd~ object syntax),
+	comments (especially about the libaipc API), questions,
+	code, food, etc. to k.s.matheussen@notam02.no
+
+

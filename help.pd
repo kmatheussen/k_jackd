@@ -1,0 +1,10 @@
+#N canvas 0 0 450 300 10;
+#X obj 218 166 dac~;
+#X obj 216 96 adc~;
+#X obj 121 132 k_jackd~ freqtweak;
+#X text 29 11 k_jack~ - a Jack server for Pure Data. Usage: "k_jackd~
+<clientname>".;
+#X connect 1 0 2 1;
+#X connect 1 1 2 2;
+#X connect 2 1 0 0;
+#X connect 2 2 0 1;
